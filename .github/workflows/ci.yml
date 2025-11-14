@@ -21,6 +21,11 @@ jobs:
           docker version
           docker compose version
 
+      - name: Propagate UID/GID to Compose build args
+        run: |
+          echo "UID=$(id -u)" >> "$GITHUB_ENV"
+          echo "GID=$(id -g)" >> "$GITHUB_ENV"
+
       - name: Build Docker image via compose
         run: docker compose build
 
