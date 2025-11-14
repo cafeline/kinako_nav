@@ -33,7 +33,8 @@ jobs:
       - name: Validate workspace build and launch entrypoint
         run: |
           docker compose exec ros2 bash -lc "
-            set -euo pipefail
+            set -e
+            export AMENT_TRACE_SETUP_FILES=0
             source /opt/ros/\${ROS_DISTRO}/setup.bash
             cd \${ROS_WS}
             sudo rosdep update
