@@ -37,9 +37,10 @@ jobs:
             export AMENT_TRACE_SETUP_FILES=0
             source /opt/ros/\${ROS_DISTRO}/setup.bash
             cd \${ROS_WS}
-            sudo rosdep update
-            sudo rosdep install --from-paths src --ignore-src -r -y
-            colcon build --symlink-install
+            rm -rf build install log
+            rosdep update
+            sudo -E rosdep install --from-paths src --ignore-src -r -y --rosdistro \${ROS_DISTRO}
+            colcon build --symlink-install --merge-install
             source install/setup.bash
             ros2 launch emcl2 emcl2.launch.py --show-args
           "
