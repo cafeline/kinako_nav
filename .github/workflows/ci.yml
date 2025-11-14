@@ -9,6 +9,8 @@ on:
 jobs:
   build-and-test:
     runs-on: ubuntu-22.04
+    env:
+      COMPOSE_FILE: docker-compose.yml:.github/compose.ci.yml
 
     steps:
       - name: Checkout repository

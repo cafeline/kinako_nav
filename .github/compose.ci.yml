@@ -1,0 +1,7 @@
+services:
+  ros2:
+    runtime: null
+    gpus: null
+    devices: []
+    volumes:
+      - ./navigation_ws:/home/user/navigation_ws
