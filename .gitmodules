@@ -16,3 +16,6 @@
 [submodule "navigation_ws/src/vq_server"]
 	path = navigation_ws/src/vq_server
 	url = git@github.com:cafeline/vq_server.git
+[submodule "navigation_ws/src/velocity_smoother"]
+	path = navigation_ws/src/velocity_smoother
+	url = git@github.com:cafeline/velocity_smoother.git
