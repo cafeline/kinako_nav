@@ -1,7 +1,8 @@
 services:
   ros2:
-    runtime: null
-    gpus: null
+    runtime:
+    gpus:
     devices: []
-    volumes:
-      - ./navigation_ws:/home/user/navigation_ws
+    environment:
+      NVIDIA_VISIBLE_DEVICES:
+      NVIDIA_DRIVER_CAPABILITIES:
