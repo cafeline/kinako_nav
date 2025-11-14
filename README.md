@@ -9,6 +9,10 @@ git submodule update --init --recursive
 
 ## 2. Docker イメージのビルドとコンテナ起動
 
+> **GPUを使う場合**は以下のコマンドの前に  
+> `export COMPOSE_FILE="docker-compose.yml:docker-compose.gpu.yml"`  
+> を実行しておくと、以降の `docker compose` コマンドが自動的にGPU設定を取り込みます。
+
 ```bash
 # X11 転送を許可（必要に応じて）
 xhost +local:docker
@@ -40,7 +44,7 @@ source install/setup.bash
 ros2 launch emcl2 emcl2.launch.py
 ```
 
-必要に応じて別ターミナルから `docker compose exec ros2 bash` でログを確認したり、`nvidia-smi` で GPU 使用状況を監視してください。
+必要に応じて別ターミナルから `docker compose exec ros2 bash` でログを確認したり、GPU構成を有効にしている場合は `nvidia-smi` で使用状況を監視してください。
 
 ## 5. 後片付け
 

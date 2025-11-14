@@ -1,8 +1,0 @@
-services:
-  ros2:
-    runtime:
-    gpus:
-    devices: []
-    environment:
-      NVIDIA_VISIBLE_DEVICES:
-      NVIDIA_DRIVER_CAPABILITIES:
