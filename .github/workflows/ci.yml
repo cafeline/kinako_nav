@@ -24,9 +24,12 @@ jobs:
       - name: Build Docker image via compose
         run: docker compose build
 
+      - name: Start services
+        run: docker compose up -d
+
       - name: Validate workspace build and launch entrypoint
         run: |
-          docker compose run --rm ros2 bash -lc "
+          docker compose exec ros2 bash -lc "
             set -euo pipefail
             source /opt/ros/\${ROS_DISTRO}/setup.bash
             cd \${ROS_WS}
