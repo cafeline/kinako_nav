@@ -1,0 +1,30 @@
+services:
+  ros2:
+    build:
+      context: .
+      dockerfile: Dockerfile
+      args:
+        USER_UID: ${UID:-1000}
+        USER_GID: ${GID:-1000}
+    image: tsukuba2025:latest
+    container_name: tsukuba2025_ros2
+    runtime: nvidia
+    gpus: all
+    network_mode: host
+    environment:
+      - DISPLAY=${DISPLAY}
+      - QT_X11_NO_MITSHM=1
+      - NVIDIA_VISIBLE_DEVICES=all
+      - NVIDIA_DRIVER_CAPABILITIES=compute,graphics,utility,display
+      - __NV_PRIME_RENDER_OFFLOAD=1
+      - __NV_PRIME_RENDER_OFFLOAD_PROVIDER=NVIDIA-G0
+      - __GLX_VENDOR_LIBRARY_NAME=nvidia
+      - __VK_LAYER_NV_optimus=NVIDIA_only
+    volumes:
+      - ./navigation_ws:/home/user/navigation_ws
+      - /tmp/.X11-unix:/tmp/.X11-unix:rw
+    devices:
+      - /dev/dri:/dev/dri
+    working_dir: /home/user/navigation_ws
+    tty: true
+    stdin_open: true
