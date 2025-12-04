@@ -19,3 +19,6 @@
 [submodule "navigation_ws/src/velocity_smoother"]
 	path = navigation_ws/src/velocity_smoother
 	url = git@github.com:cafeline/velocity_smoother.git
+[submodule "navigation_ws/src/imu_rpy_pose"]
+	path = navigation_ws/src/imu_rpy_pose
+	url = git@github.com:cafeline/imu_rpy_pose.git
