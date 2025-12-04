@@ -1,5 +1,5 @@
 # syntax=docker/dockerfile:1.4
-FROM osrf/ros:humble-desktop-full
+FROM ros:humble-ros-base
 
 SHELL ["/bin/bash", "-o", "pipefail", "-c"]
 
@@ -17,9 +17,6 @@ ENV USER=${USERNAME} \
     HOME=/home/${USERNAME} \
     ROS_WS=/home/${USERNAME}/navigation_ws
 
-ENV NVIDIA_VISIBLE_DEVICES=all \
-    NVIDIA_DRIVER_CAPABILITIES=compute,graphics,utility,display
-
 RUN apt-get update && apt-get install -y --no-install-recommends \
       locales \
       sudo \
@@ -36,6 +33,7 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
       python3-vcstool \
       ros-humble-rviz2 \
       ros-humble-raspimouse-msgs \
+      libopencv-dev \
       libyaml-cpp-dev \
       libboost-filesystem-dev \
       libboost-thread-dev \

@@ -16,6 +16,22 @@ git submodule update --init --recursive
 > `export ROS_DOMAIN_ID=<値>`  
 > をセットしてから `docker compose` を実行すると、同じ値がコンテナへ自動的に渡されます（未設定時は0）。
 
+### Raspberry Pi (ARM64) で使う場合
+
+- 64bit OS を前提とします。GPU 構成（`docker-compose.gpu.yml`）は使わず、CPU 版で動かしてください。
+- 以前に x86_64 でビルド済みの `navigation_ws/build` や `install` がある場合は削除してからビルドしてください。
+
+```bash
+# (任意) 常に ARM64 でビルドする場合
+export DOCKER_DEFAULT_PLATFORM=linux/arm64
+
+# イメージを ARM64 でビルド
+docker compose build --platform linux/arm64
+
+# コンテナ起動
+docker compose up -d
+```
+
 ```bash
 # X11 転送を許可（必要に応じて）
 xhost +local:docker
