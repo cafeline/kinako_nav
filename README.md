@@ -1,4 +1,4 @@
-# tsukuba2025_container 立ち上げ手順
+# kinako_nav 立ち上げ手順
 ## 1. リポジトリ取得とサブモジュール更新
 
 ```bash
