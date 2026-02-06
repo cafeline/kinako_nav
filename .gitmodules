@@ -7,12 +7,12 @@
 [submodule "navigation_ws/src/pointcloud2_cutter"]
 	path = navigation_ws/src/pointcloud2_cutter
 	url = git@github.com:cafeline/pointcloud2_cutter.git
-[submodule "navigation_ws/src/raspicat_tvvf_navigation"]
-	path = navigation_ws/src/raspicat_tvvf_navigation
-	url = git@github.com:cafeline/raspicat_tvvf_navigation.git
-[submodule "navigation_ws/src/tvvf_vo_cpp"]
-	path = navigation_ws/src/tvvf_vo_cpp
-	url = git@github.com:cafeline/tvvf_vo2.git
+[submodule "navigation_ws/src/waypoint_follower"]
+	path = navigation_ws/src/waypoint_follower
+	url = git@github.com:cafeline/waypoint_follower.git
+[submodule "navigation_ws/src/vector_field_planner"]
+	path = navigation_ws/src/vector_field_planner
+	url = git@github.com:cafeline/vector_field_planner.git
 [submodule "navigation_ws/src/vq_server"]
 	path = navigation_ws/src/vq_server
 	url = git@github.com:cafeline/vq_server.git
