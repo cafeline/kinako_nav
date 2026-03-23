@@ -2,3 +2,8 @@
 /*/install/
 /*/log/
 /*/share/
+**/__pycache__/
+*.pyc
+/navigation_ws/build_host/
+/navigation_ws/install_host/
+/navigation_ws/test_results_host/
