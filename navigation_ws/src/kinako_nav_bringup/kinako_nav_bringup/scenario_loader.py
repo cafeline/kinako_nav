@@ -1,8 +1,10 @@
 import copy
 import os
-from typing import Any, Dict
+from typing import Any, Dict, List
 
 import yaml
+
+CORE_SCENARIOS = ["tsukuba", "tsudanuma", "19f"]
 
 
 def load_yaml_file(path: str) -> Dict[str, Any]:
@@ -11,6 +13,27 @@ def load_yaml_file(path: str) -> Dict[str, Any]:
     if not isinstance(data, dict):
         raise ValueError(f"YAML root must be mapping: {path}")
     return data
+
+
+def list_available_scenarios(scenarios_dir: str) -> List[str]:
+    if not os.path.isdir(scenarios_dir):
+        return CORE_SCENARIOS.copy()
+
+    names = []
+    for entry in os.listdir(scenarios_dir):
+        if not entry.endswith(".yaml"):
+            continue
+        names.append(os.path.splitext(entry)[0])
+
+    if not names:
+        return CORE_SCENARIOS.copy()
+
+    # Keep core scenarios first when present, then append others.
+    ordered = [name for name in CORE_SCENARIOS if name in names]
+    for name in sorted(names):
+        if name not in ordered:
+            ordered.append(name)
+    return ordered
 
 
 def build_default_overrides(assets_share_dir: str, scenario_name: str) -> Dict[str, str]:

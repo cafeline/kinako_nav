@@ -1,3 +1,4 @@
+from glob import glob
 from setuptools import setup
 
 package_name = 'kinako_nav_bringup'
@@ -10,7 +11,7 @@ setup(
         ('share/ament_index/resource_index/packages', ['resource/' + package_name]),
         ('share/' + package_name, ['package.xml']),
         ('share/' + package_name + '/launch', ['launch/navigation.launch.py']),
-        ('share/' + package_name + '/config/scenarios', ['config/scenarios/tsukuba.yaml']),
+        ('share/' + package_name + '/config/scenarios', glob('config/scenarios/*.yaml')),
         ('share/' + package_name + '/rviz', ['rviz/navigation.rviz']),
     ],
     install_requires=['setuptools'],

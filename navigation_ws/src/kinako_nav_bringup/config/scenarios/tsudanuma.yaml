@@ -1,0 +1,144 @@
+/**:
+  ros__parameters:
+    use_sim_time: false
+
+emcl2:
+  ros__parameters:
+    map_frame_id: "map"
+    odom_frame_id: "odom"
+    base_frame_id: "base_link"
+    footprint_frame_id: "base_footprint"
+    pointcloud_topic: "/pointcloud/cut"
+    map_hdf5_path: ""
+    transform_tolerance: 0.2
+    odom_straight_only: true
+    odom_freq: 10
+    num_particles: 1000
+    initial_pose_x: 0.0
+    initial_pose_y: 0.0
+    initial_pose_yaw: 0.0
+    initial_std_xy: 0.5
+    initial_std_yaw: 0.5
+    sensor_offset_x: 0.0
+    sensor_offset_y: 0.0
+    sensor_offset_z: 0.0
+    sensor_roll: 0.0
+    sensor_pitch: 0.0
+    sensor_yaw: 0.0
+    odom_fw_dev_per_fw: 0.19
+    odom_fw_dev_per_rot: 0.0001
+    odom_rot_dev_per_fw: 0.13
+    odom_rot_dev_per_rot: 0.2
+    external_yaw_child_frame: "imu_heading"
+    external_yaw_timeout: 1.0
+    laser_likelihood_max_dist: 0.2
+    laser_min_range: 0.0
+    laser_max_range: 100000000.0
+    alpha_threshold: 0.0
+    sensor_reset: false
+
+pointcloud2_cutter:
+  ros__parameters:
+    input_pointcloud_topic: "/livox/lidar"
+    filtered_pointcloud_topic: "pointcloud/cut"
+    output_filtered_pointcloud_topic: "pointcloud/cut"
+    pose_topic: "/mcl_pose"
+    scan_frame_id: "lidar_link"
+    output_frame_id: "lidar_link"
+    publish_scan: true
+    output_scan_topic: "scan"
+    scan_height_min: -0.15
+    scan_height_max: 0.5
+    scan_angle_min: -2.0
+    # scan_angle_min: -3.141592653589793
+    scan_angle_max: 2.0
+    # scan_angle_max: 3.141592653589793
+    scan_angle_increment: 0.005
+    scan_range_min: 0.05
+    scan_range_max: 10.0
+    default_laser_height_min: 2.0
+    default_laser_height_max: 50.0
+    regions_config_path: ""
+
+obstacle_tracker:
+  ros__parameters:
+    robot_processing_range: 10.0  # ロボット周囲で処理する最大距離[m]
+    dynamic_cluster_speed_threshold: 0.0  # 動的障害物と判定する速度しきい値[m/s]
+    voxel_size: 0.2  # 領域離散化のボクセルサイズ[m]
+    clustering_max_distance: 0.3  # DBSCANで同一クラスタとみなす最大距離[m]
+    min_cluster_points: 2  # クラスタ形成に必要な最少点数
+    processing_frequency: 20.0  # レーザースキャン処理の周波数[Hz]
+    max_computation_time: 0.05  # 1周期あたりの許容計算時間[s]
+    enable_adaptive_dbscan: true  # 距離に応じてクラスタ閾値を変化させるか
+    dbscan_base_eps: 0.3  # アダプティブDBSCANの基準半径[m]
+    dbscan_min_points: 3  # DBSCANで必要な最小点数
+    distance_adaptive_factor: 0.05  # 距離に応じた半径拡張係数
+    max_angular_difference: 0.2  # クラスタ方向変化を許容する最大角度[rad]
+    enable_enhanced_tracking: true  # 速度平滑化などの拡張追跡を有効化
+    velocity_smoothing_alpha: 0.3  # 速度の指数移動平均係数
+    confidence_decay_rate: 0.1  # 観測が途切れた際の信頼度減衰率
+    max_missing_frames: 10  # 追跡を維持できる未検出フレーム数
+    enable_sliding_window: true  # スライディングウィンドウバッファを使用
+    sliding_window_size: 10  # 保持するフレーム数
+    min_voxel_observations: 2  # 有効ボクセルとみなす最小観測回数
+
+tvvf_vo_c_node:
+  ros__parameters:
+    vector_field_path_width: 4.0 # パス幅 [m]
+    k_attraction: 1.0  # 目標へ引き寄せるベクトル場の強さ
+    # k_repulsion: 1.0  # 障害物からの斥力強度
+    # influence_radius: 1.5  # 障害物影響半径[m]
+    k_path_attraction: 2.0  # 経路追従の引力強度
+    path_influence_radius: 1.5  # 経路影響半径[m]
+    lookahead_distance: 1.0  # 経路先読み距離[m]
+    safety_margin: 0.12  # ロボット外周の安全マージン[m]
+    max_linear_velocity: 0.6  # 最大並進速度[m/s]
+    max_angular_velocity: 0.3  # 最大角速度[rad/s]
+    max_acceleration: 0.05  # 最大加速度[m/s^2]
+    robot_radius: 0.15  # ロボット半径[m]
+    wheel_base: 0.42  # ホイールベース[m]
+    orientation_tolerance: 0.2  # 姿勢許容誤差[rad]
+    base_frame: "base_link"  # ロボットベースフレーム名
+    global_frame: "map"  # グローバル座標系
+    laser_frame: "livox"  # LiDARフレーム
+    goal_tolerance: 0.15  # 目標位置許容誤差[m]
+    prediction_dt: 0.1  # 予測時間ステップ[s]
+    uncertainty_growth: 0.1  # 予測時の不確実性増加率
+    direction_weight: 1.0  # 進行方向の重み
+    safety_weight: 2.0  # 安全性の重み
+    efficiency_weight: 0.5  # 効率性の重み
+    min_distance: 1.0e-6  # ゼロ割防止の最小距離
+    max_computation_time: 0.05  # 1周期の最大計算時間[s]
+    enable_visualization: true  # 可視化マーカー出力の有無
+    enable_vector_field_viz: true  # ベクトル場の可視化有無
+    vector_field_resolution: 0.5  # ベクトル場サンプリング間隔[m]
+    vector_field_range: 3.0  # 可視化する半径[m]
+    vector_scale_factor: 0.3  # 矢印のスケール係数
+    max_vector_points: 300  # 表示する最大ベクトル点数
+    min_vector_magnitude: 0.05  # 表示する最小ベクトル大きさ
+    viz_update_rate: 5.0  # 可視化更新周期[Hz]
+
+waypoint_follower_node:
+  ros__parameters:
+    waypoint_csv_path: ""
+    position_tolerance: 0.5
+    orientation_tolerance: 3.14
+    max_retry_count: 3
+    goal_timeout: 30.0
+    auto_start: true
+    enable_skip_on_timeout: true
+    loop_navigation: false
+    global_frame: "map"
+    robot_base_frame: "base_link"
+    use_sim_time: true
+
+map_server:
+  ros__parameters:
+    map_yaml_path: ""
+
+vq_server:
+  ros__parameters:
+    frame_id: "map"
+    marker_topic: "compressed_map_markers"
+    marker_color_rgba: [0.1, 0.8, 0.4, 0.2]
+    map_file: ""
