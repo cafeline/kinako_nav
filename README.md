@@ -48,10 +48,53 @@ colcon build --symlink-install
 source install/setup.bash
 ```
 
-## 4. emcl2.launch.py を起動
+## 4. 統合 bringup を起動（推奨）
 
 ```bash
-ros2 launch emcl2 emcl2.launch.py
+ros2 launch kinako_nav_bringup navigation.launch.py scenario:=tsukuba use_rviz:=false
+```
+
+### シナリオ切り替え
+
+```bash
+# つくば
+ros2 launch kinako_nav_bringup navigation.launch.py scenario:=tsukuba
+
+# 津田沼
+ros2 launch kinako_nav_bringup navigation.launch.py scenario:=tsudanuma
+
+# 19f
+ros2 launch kinako_nav_bringup navigation.launch.py scenario:=19f
+```
+
+### 主な launch 引数
+
+- `scenario`: `tsukuba` / `tsudanuma` / `19f`
+- `use_sim_time`: `true` / `false`
+- `use_rviz`: `true` / `false`
+- `auto_start`: `true` / `false`（ウェイポイント巡航の自動開始）
+- `map_hdf5_file`: 自己位置推定用 3D マップ (`.h5`) の上書き
+- `vq_map_file`: 可視化用 3D マップ (`.h5`) の上書き
+- `map_yaml_file`: 2D マップ (`.yaml`) の上書き
+- `waypoint_csv_file`: ウェイポイント (`.csv`) の上書き
+- `regions_config_file`: pointcloud 切り出し領域 (`.yaml`) の上書き
+
+例:
+
+```bash
+ros2 launch kinako_nav_bringup navigation.launch.py \
+  scenario:=tsukuba \
+  use_rviz:=true \
+  auto_start:=false
+```
+
+### 互換 launch（既存呼び出し）
+
+既存の起動コマンドも互換ラッパーとして使えます（内部で `kinako_nav_bringup` を呼び出します）。
+
+```bash
+ros2 launch emcl2 emcl2.launch.py scenario:=tsukuba
+ros2 launch raspicat_tvvf_navigation waypoint_navigation.launch.py scenario:=tsukuba
 ```
 
 ## 5. 終了
@@ -60,4 +103,3 @@ ros2 launch emcl2 emcl2.launch.py
 exit                        # コンテナシェルを抜ける
 docker compose down         # コンテナを停止・削除
 ```
-

@@ -46,7 +46,7 @@ def generate_launch_description():
 
     declare_scenario = DeclareLaunchArgument("scenario", default_value="tsukuba")
     declare_use_sim_time = DeclareLaunchArgument("use_sim_time", default_value="false")
-    declare_use_rviz = DeclareLaunchArgument("use_rviz", default_value="false")
+    declare_use_rviz = DeclareLaunchArgument("use_rviz", default_value="true")
     declare_rviz_config = DeclareLaunchArgument(
         "rviz_config_file",
         default_value=os.path.join(pkg_bringup, "rviz", "navigation.rviz"),
