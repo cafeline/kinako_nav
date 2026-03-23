@@ -1,4 +1,5 @@
 import copy
+import os
 from typing import Any, Dict
 
 import yaml
@@ -10,6 +11,17 @@ def load_yaml_file(path: str) -> Dict[str, Any]:
     if not isinstance(data, dict):
         raise ValueError(f"YAML root must be mapping: {path}")
     return data
+
+
+def build_default_overrides(assets_share_dir: str, scenario_name: str) -> Dict[str, str]:
+    scenario_root = os.path.join(assets_share_dir, "maps3d", scenario_name)
+    return {
+        "map_hdf5_file": os.path.join(scenario_root, "localization.h5"),
+        "vq_map_file": os.path.join(scenario_root, "visualization.h5"),
+        "map_yaml_file": os.path.join(assets_share_dir, "maps2d", scenario_name, "navigation_map.yaml"),
+        "waypoint_csv_file": os.path.join(assets_share_dir, "waypoints", scenario_name, "waypoints.csv"),
+        "regions_config_file": os.path.join(assets_share_dir, "regions", scenario_name, "regions.yaml"),
+    }
 
 
 def _set_nested(params: Dict[str, Any], node: str, key: str, value: Any) -> None:

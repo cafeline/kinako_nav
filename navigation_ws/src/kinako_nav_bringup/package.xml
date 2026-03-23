@@ -12,6 +12,7 @@
   <exec_depend>launch</exec_depend>
   <exec_depend>launch_ros</exec_depend>
   <exec_depend>ament_index_python</exec_depend>
+  <exec_depend>kinako_nav_assets</exec_depend>
   <exec_depend>emcl2</exec_depend>
   <exec_depend>imu_rpy_pose</exec_depend>
   <exec_depend>obstacle_tracker</exec_depend>
