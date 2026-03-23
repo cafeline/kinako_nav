@@ -1,0 +1,152 @@
+/**:
+  ros__parameters:
+    use_sim_time: true
+    use_rviz: true
+
+emcl2:
+  ros__parameters:
+    map_frame_id: "map"
+    odom_frame_id: "odom"
+    base_frame_id: "base_link"
+    pointcloud_topic: "/pointcloud/cut"
+    transform_tolerance: 0.2
+    odom_straight_only: true
+    odom_freq: 10
+    num_particles: 1000
+    initial_pose_x: 10.5
+    initial_pose_y: 1.6
+    # initial_pose_x: 8.5 # right
+    # initial_pose_y: -4.5
+    initial_pose_yaw: -0.12
+    initial_std_xy: 0.5
+    initial_std_yaw: 0.5
+    sensor_offset_x: 0.0
+    sensor_offset_y: 0.0
+    sensor_offset_z: 0.0
+    sensor_roll: 0.0
+    sensor_pitch: 0.0
+    sensor_yaw: 0.0
+    odom_fw_dev_per_fw: 0.19
+    odom_fw_dev_per_rot: 0.0001
+    odom_rot_dev_per_fw: 0.13
+    odom_rot_dev_per_rot: 0.2
+    external_yaw_child_frame: "imu_heading"
+    external_yaw_timeout: 1.0
+
+imu_rpy_pose:
+  ros__parameters:
+    imu_topic: "livox/imu"
+    bias_sample_count: 1000
+    clip_enable: true
+    clip_max_rad_per_s: 10.0
+    lpf_enable: true
+    lpf_alpha: 0.2
+    dt_check_enable: true
+    dt_min: 0.003
+    dt_max: 0.006
+    marker_frame: "livox_frame"
+    marker_topic: "imu_arrow"
+    publish_yaw_tf: true
+    yaw_tf_parent_frame: "odom"
+    yaw_tf_child_frame: "imu_heading"
+
+pointcloud2_cutter:
+  ros__parameters:
+    input_pointcloud_topic: "/livox/lidar"
+    filtered_pointcloud_topic: "pointcloud/cut"
+    output_filtered_pointcloud_topic: "pointcloud/cut"
+    pose_topic: "/mcl_pose"
+    scan_frame_id: "lidar_link"
+    output_frame_id: "lidar_link"
+    publish_scan: true
+    output_scan_topic: "scan"
+    scan_height_min: -0.1
+    scan_height_max: 1.0
+    scan_angle_min: -1.5
+    # scan_angle_min: -3.141592653589793
+    scan_angle_max: 1.5
+    # scan_angle_max: 3.141592653589793
+    scan_angle_increment: 0.005
+    scan_range_min: 0.05
+    scan_range_max: 8.0
+    default_laser_height_min: 2.0
+    default_laser_height_max: 50.0
+    max_filtered_points: 3000
+
+obstacle_tracker:
+  ros__parameters:
+    scan_topic: "/scan"
+    obstacles_topic: "/obstacles"
+    target_frame: "map"
+    tf_timeout_sec: 1.0
+    processing_range: 10.0
+    range_jump_ratio: 0.05
+    range_jump_min: 0.05
+    min_cluster_points: 2
+    range_gap_abs: 0.2
+    mask_topic: "/obstacle_mask"
+    mask_resolution: 0.1
+    mask_inflation_radius: 0.3
+
+tvvf_vo_c_node:
+  ros__parameters:
+    control_loop_rate: 5.0  # [Hz]
+    vector_field_path_width: 4.0 # パス幅 [m]
+    max_linear_velocity: 0.5  # 最大並進速度[m/s]
+    max_angular_velocity: 0.6  # 最大角速度[rad/s]
+    robot_radius: 0.24  # ロボット半径[m]
+    base_frame: "base_link"  # ロボットベースフレーム名
+    global_frame: "map"  # グローバル座標系
+    goal_tolerance: 0.4  # 目標位置許容誤差[m]（waypoint_followerのposition_tolerance=3.0より小さく設定）
+    orientation_tolerance: 0.4 # 目標進行方向と機体の向きの差がこの角度を超えると回転優先
+    turning_linear_speed_mps: 0.4 # 最小並進速度[ms]
+    turning_angular_gain: 2.0
+    tracking_angular_gain: 1.0
+    costmap_alpha: 1.0  # コストマップブレンド係数
+    costmap_min_speed: 0.3  # コストが高いときの最低速度[m/s]
+    costmap_max_speed: 0.5  # コストが低いときの最大速度[m/s]
+    costmap_clearance_epsilon: 0.1  # コストに対する速度の影響度合い。小さくしすぎると急減速[m]
+    costmap_max_clearance: 2.0  # それ以上離れても速度が頭打ちになる距離[m]
+    costmap_escape_speed_min: 0.2  # スタック防止の足元特例速度[m/s]
+    optimizer_goal_weight: 1.0  # ゴール到達重み
+    optimizer_smooth_weight: 4.0  # 速度平滑化重み
+    optimizer_max_linear_acceleration: 0.3  # 最大並進加速度[m/s^2]
+    obstacle_mask_topic: "/obstacle_mask"
+    occupancy_clear_radius: 0.3  # 足元クリア範囲[m]（マスク/静的地図ともに適用）
+    costmap_resolution: 0.2
+
+
+velocity_smoother:
+  ros__parameters:
+    time_constant: 0.2
+    command_timeout: 0.5
+    max_linear_speed: 0.5
+    max_angular_speed: 0.4
+    publish_frequency: 10.0
+    base_frame: "base_link"
+    raw_cmd_topic: "cmd_vel_raw"
+    filtered_cmd_topic: "cmd_vel"
+    marker_topic: "cmd_vel_marker"
+    marker_scale_y: 0.5
+    marker_scale_z: 0.8
+    marker_color: [0.0, 0.8, 1.0, 0.9]
+
+waypoint_follower_node:
+  ros__parameters:
+    position_tolerance_strict: 3.3  # meters　半径
+    orientation_tolerance_strict: 1.17  # radians(20deg)
+    position_tolerance_loose: 4.0  # meters
+    orientation_tolerance_loose: 3.14  # radians
+    max_retry_count: 3  # 1ウェイポイントにつき再挑戦する最大回数
+    goal_timeout: 30.0  # 各ウェイポイントで待機する最大時間[s]
+    auto_start: true  # ノード起動直後に自動で巡航を開始するフラグ
+    enable_skip_on_timeout: true  # タイムアウト発生時に該当ウェイポイントをスキップするか
+    loop_navigation: false  # 最終ウェイポイント到達後に再び先頭へ戻るか
+    global_frame: "map"  # ウェイポイントを表現するグローバルTFフレーム
+    robot_base_frame: "base_link"  # ロボットベースのTFフレーム名
+
+vq_server:
+  ros__parameters:
+    frame_id: "map"
+    marker_topic: "compressed_map_markers"
+    marker_color_rgba: [0.1, 0.8, 0.4, 0.30]
